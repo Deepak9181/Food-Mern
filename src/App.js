@@ -9,7 +9,7 @@ import Login from './Components/Log.js';
 import { Provider } from 'react-redux';
 import appstore from './utils/store.js';
 import Cart from './Components/Cart.js';
-
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
         <Header/>
         <Outlet/>
         <Footer/>
+        <Toaster />
       </Provider>
     </div>
   );

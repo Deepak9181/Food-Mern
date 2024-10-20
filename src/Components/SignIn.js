@@ -1,13 +1,7 @@
-import { useState,useEffect } from "react";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import Pop from "./Pop";
 const SignIn = () => {
-  const [Info,setInfo]=useState({
-    message:"",
-    color:""
-  });
-  const [showitem, setShowitem] = useState(false);
-
   const [signDetails, setsignDetails] = useState({
     name: "",
     location: "",
@@ -19,11 +13,11 @@ const SignIn = () => {
     setsignDetails({ ...signDetails, [e.target.name]: e.target.value });
     // console.log({ ...signDetails, [e.target.name]: e.target.value });
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://food-backend-t1fz.onrender.com/user", {
+      const response = await fetch("http://127.0.0.1:5000/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,16 +28,9 @@ const SignIn = () => {
       const data = await response.json();
       if (response.ok) {
         console.log("Success:", data);
-        setInfo({
-          message:data.status,
-          color:"#4CAF50"
-        });
+        toast.success("User created successfully");
       } else {
         console.error("Error:", data);
-        setInfo({
-          message:data.status,
-          color:"#DC143C"
-        });
       }
     } catch (error) {
       console.error("Error:", error);
@@ -54,18 +41,7 @@ const SignIn = () => {
       email: "",
       password: "",
     })
-    setShowitem(true);
   };
-
-  useEffect(() => {
-    if (Info.message) {
-      const timer = setTimeout(() => {
-        setShowitem(false);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [Info.message]);
 
 
   return (
@@ -157,9 +133,6 @@ const SignIn = () => {
           </Link>
         </div>
       </form>
-    </div>
-    <div>
-      {showitem && <Pop data={Info}/>}
     </div>
     </>
   );

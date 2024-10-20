@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -15,7 +16,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://food-backend-t1fz.onrender.com/login", {
+      const response = await fetch("http://127.0.0.1:5000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,7 +28,8 @@ const Login = () => {
       console.log(data);
       if(data.success) {
         localStorage.setItem('token', data.token);
-        console.log(localStorage.getItem('token'));
+        toast.success("Login successful");
+        // console.log(localStorage.getItem('token'));
         navigate("/");
       }
     } 

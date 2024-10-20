@@ -1,16 +1,16 @@
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addItem } from "../utils/slice";
-import Pop from "./Pop";
+import toast from "react-hot-toast";
 
 const Card = ({data}) => {
+  // console.log(data);
 
   let options = data.options[0];
   let optionkey = Object.keys(options);
   let optionval = Object.values(options);
   // console.log(optionval[0]);
 
-  const [showitem, setShowitem] = useState(false);
   const [price,setprice]=useState(optionval[0]);
   const [qty,setqty] = useState(1);
   const[option,setoption]= useState(optionkey[0]);
@@ -33,16 +33,13 @@ const Card = ({data}) => {
   const dispatch = useDispatch();
 
   const handlecart=()=>{
-    dispatch(addItem(items));
+    if(localStorage.getItem("token")){
+      dispatch(addItem(items));
+     toast.success("Item added to the cart successfully!");
+    }else{
+      toast.error("Please log in to add items to the cart.");
+    }
   }
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowitem(false);
-    }, 500);
-
-    return () => clearTimeout(timer); // Cleanup the timer
-  },[showitem]);
 
 
   return (
@@ -82,16 +79,8 @@ const Card = ({data}) => {
       <span className="text-lg text-red-600 font-bold ">₹{handleprice()}</span>
       <div>
         <button className="border px-6 rounded-full bg-red-600 border-black/70 text-white py-1 my-2" 
-        onClick={()=>{handlecart(items);
-          setShowitem(true);
-        }}>Add to Cart</button>
+        onClick={handlecart}>Add to Cart</button>
       </div>
-      
-      {showitem &&<Pop data={{
-        message:"Items added To Cart",
-        color:"rgb(74 222 128)"
-      }}/>}
-    
     </div>
   );
 };

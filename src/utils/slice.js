@@ -8,8 +8,7 @@ const cartslice = createSlice({
     reducers:{
         addItem:(state,action)=>{
             let food = action.payload;
-            const index = state.items.findIndex(item=>item.id === food.id)
-
+            const index = state.items.findIndex(item=> item.id  === food.id)
             if(index>=0){
                 state.items[index]=food;
             }else{
