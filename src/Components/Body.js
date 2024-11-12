@@ -9,7 +9,17 @@ const Body = () => {
 
   const loadData = async () => {
     try {
+<<<<<<< HEAD
       const response = await fetch("https://food-backend-t1fz.onrender.com/fooddata");
+=======
+      const response = await fetch("https://food-backend-t1fz.onrender.com/fooddata", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+>>>>>>> 7e76f6413ed6553cf8b5a84144e70f898fee54ed
       const json = await response.json();
       setcardinfo(json.data[0]);
       setcardcat(json.data[1]);
