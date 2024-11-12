@@ -4,7 +4,7 @@ import { addItem } from "../utils/slice";
 import toast from "react-hot-toast";
 
 const Card = ({data}) => {
-  // console.log(data);
+  console.log(data);
 
   let options = data.options[0];
   let optionkey = Object.keys(options);

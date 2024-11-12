@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "./Card";
 import Carousal from "./Carousal";
+import Shrimmer from "./Shimmer";
 
 const Body = () => {
   const [cardinfo, setcardinfo] = useState([]);
@@ -8,13 +9,7 @@ const Body = () => {
 
   const loadData = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/fooddata", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
+      const response = await fetch("https://food-backend-t1fz.onrender.com/fooddata");
       const json = await response.json();
       setcardinfo(json.data[0]);
       setcardcat(json.data[1]);
@@ -28,10 +23,10 @@ const Body = () => {
   }, []);
 
   if (!cardinfo.length || !cardcat.length) {
-    return <h1>Loading...</h1>;
+    return <Shrimmer/>;
   }
-  // console.log(cardinfo);
-  // console.log(cardcat);
+  console.log(cardinfo);
+  console.log(cardcat);
 
   return (
     <div className="Body">
